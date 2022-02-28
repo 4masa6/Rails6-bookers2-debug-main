@@ -33,4 +33,18 @@ class User < ApplicationRecord
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
+
+  def self.search(keyword, search_type)
+    case search_type
+      when '完全一致' then
+        where(['name Like ?', "#{keyword}"])
+      when '前方一致' then
+        where(['name Like ?', "#{keyword}%"])
+      when '後方一致' then
+        where(['name Like ?', "%#{keyword}"])
+      when '部分一致' then
+        where(['name Like ?', "%#{keyword}%"])
+    end
+  end
+
 end

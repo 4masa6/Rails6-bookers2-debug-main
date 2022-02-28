@@ -2,6 +2,14 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
       <a class="navbar-brand" href="/"><span>Bookers</span></a>
+      <div class="pl-5">
+        <%= form_with url: search_path, method: :get, local: true do |f| %>
+          <%= f.text_field :keyword, value: @keyword %>
+          <%= f.select :search_target, [['User', 'Users'], ['Book', 'Books']] %>
+          <%= f.select :search_type, [['完全一致', '完全一致'], ['前方一致', '前方一致'], ['後方一致', '後方一致'], ['部分一致', '部分一致']] %>
+          <%= f.submit '検索' %>
+        <% end %>
+      </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
