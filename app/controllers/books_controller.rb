@@ -8,12 +8,21 @@ class BooksController < ApplicationController
   end
 
   def index
+    tag_name = params[:tag_name]
     sort_type = params[:sort_type]
-    if sort_type == 'new'
-      @books = Book.all.order(created_at: 'desc')
+
+    if tag_name.present?
+      @books = Book.where("category LIKE ?", "%#{tag_name}%")
+    elsif sort_type.present?
+      if sort_type == 'new'
+        @books = Book.all.order(created_at: 'desc')
+      else
+        @books = Book.all.order(rate: 'desc')
+      end
     else
-      @books = Book.all.order(rate: 'desc')
+      @books = Book.all
     end
+
     @book = Book.new
   end
 
@@ -50,7 +59,7 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title, :body, :rate)
+    params.require(:book).permit(:title, :body, :tag_name, :rate)
   end
 
   def ensure_correct_user

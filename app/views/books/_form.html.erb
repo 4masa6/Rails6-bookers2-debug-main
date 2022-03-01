@@ -14,6 +14,10 @@
     <%= f.label :opinion %>
     <%= f.text_area :body, class: 'form-control book_body' %>
   </div>
+  <div class="form-group">
+    <%= f.label :category %>
+    <%= f.text_field :category, class: 'form-control book_category' %>
+  </div>
   <% if current_page?("/books/#{book.id}/edit") %>
     <div class="book-rate text-nowrap mb-3" data-score="<%= book.rate %>"></div>
     <script>
