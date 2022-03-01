@@ -14,6 +14,33 @@
     <%= f.label :opinion %>
     <%= f.text_area :body, class: 'form-control book_body' %>
   </div>
+  <% if current_page?("/books/#{book.id}/edit") %>
+    <div class="book-rate text-nowrap mb-3" data-score="<%= book.rate %>"></div>
+    <script>
+      $('.book-rate').empty();
+      $('.book-rate').raty({
+        readOnly: true,
+        score: function() {
+          return $(this).attr('data-score');
+        },
+        path: '/assets/'
+      });
+    </script>
+  <% else %>
+    <div class="form-group field" id="star">
+          <%= f.label :rate ,"Rate", id: "e"%>
+          <%= f.hidden_field :rate, id: 'rate_star', class: 'form-control book_rate' %>
+    </div>
+    <script>
+      $('#star').empty();
+      $('#star').raty({
+        starOn: "<%= asset_path('star-on.png') %>",
+        starOff: "<%= asset_path('star-off.png') %>",
+        starHalf: "<%= asset_path('star-half.png') %>",
+        scoreName: 'book[rate]', //登録するモデル名とカラム名を記述
+      });
+    </script>
+  <% end %>
   <div class="form-group">
     <%= f.submit class: 'btn btn-success' %>
   </div>

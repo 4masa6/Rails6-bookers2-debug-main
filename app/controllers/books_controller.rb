@@ -45,11 +45,11 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title, :body)
+    params.require(:book).permit(:title, :body, :rate)
   end
 
   def ensure_correct_user
-    @user = User.find(params[:id])
+    @user = Book.find(params[:id]).user
     unless @user == current_user
       redirect_to user_path(current_user)
     end

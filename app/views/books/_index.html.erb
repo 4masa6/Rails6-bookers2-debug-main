@@ -22,7 +22,18 @@
         <td>
           コメント数：<%= book.book_comments.count %>
         </td>
+        <td class="book-rate text-nowrap" data-score="<%= book.rate %>"></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<script>
+  $('.book-rate').empty();
+  $('.book-rate').raty({
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    },
+    path: '/assets/'
+  });
+</script>
