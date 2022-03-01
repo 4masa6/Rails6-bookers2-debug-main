@@ -8,7 +8,12 @@ class BooksController < ApplicationController
   end
 
   def index
-    @books = Book.all
+    sort_type = params[:sort_type]
+    if sort_type == 'new'
+      @books = Book.all.order(created_at: 'desc')
+    else
+      @books = Book.all.order(rate: 'desc')
+    end
     @book = Book.new
   end
 
