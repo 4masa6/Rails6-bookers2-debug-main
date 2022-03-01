@@ -17,3 +17,5 @@ import "script.js"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+window.$ = jQuery;
