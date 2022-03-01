@@ -1,0 +1,14 @@
+<% book.book_comments.each do |book_comment|%>
+  <div class="mt-2">
+    <div>
+      <%= image_tag book_comment.user.get_profile_image, size:'30x30' %>
+      <%= link_to "#{book_comment.user.name}", user_path(book_comment.user.id) %>
+    </div>
+    <div>
+      <%= book_comment.comment %>
+      <% if book_comment.user == current_user %>
+        <%= link_to '削除', book_book_comment_path(@book.id, book_comment.id), method: :delete, remote: :true, class: 'btn btn-danger' %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
